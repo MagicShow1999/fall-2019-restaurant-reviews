@@ -1,28 +1,37 @@
+//import files
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-
+const app = express();
+const session = require('express-session');
+const passport = require('passport');
 require('dotenv').config();
 
-const app = express();
-const port = process.env.PORT || 6000;
 
+//setup localhost port to be 5000
+const port = process.env.PORT || 5000;
 
+//middleware 
 app.use(cors());
 app.use(express.json());
+app.use(session({
+  secret:'secret',
+  resave: true,
+  saveUninitialized: true
+}))
+//passport config
+require('./config/passport')(passport);
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 
-
-
-const uri = process.env.ATLAS_URI;
+//connect with MongoDB 
+//const uri = process.env.ATLAS_URI;
+const uri = "mongodb+srv://hw1635:wuhaodong250382@cluster0-lirni.mongodb.net/test?retryWrites=true&w=majority";
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true }
 );
 
-// mongoose.connect(uri, {useUnifiedTopology: true,useNewUrlParser: true,})
-//     .then(() => console.log('DB Connected!'))
-//     .catch(err => {
-//     console.log('DB Connection Error: ${err.message}');
-// });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -31,11 +40,19 @@ connection.once('open', () => {
 
 
 
+//Router 
+const userRouter = require('./routes/user');
+const restaurantRouter = require('./routes/restaurant');
 
-const usersRouter = require('./routes/users');
 
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
+app.use('/restaurant', restaurantRouter);
 
+
+//show the server status
 app.listen(port, ()=>{
     console.log(`Server is running on port: ${port}`);
 });
+
+//for testing
+module.exports = app;

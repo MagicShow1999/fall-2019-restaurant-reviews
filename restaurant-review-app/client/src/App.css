@@ -20,3 +20,69 @@
 .App-link {
   color: #09d3ac;
 }
+
+.form-gradient .header {
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem; }
+
+.form-gradient input[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #3238a8;
+  -webkit-box-shadow: 0 1px 0 0 #3238a8;
+  box-shadow: 0 1px 0 0 #3238a8; }
+
+.form-gradient input[type=text]:focus:not([readonly]) + label {
+  color: #4f4f4f; }
+
+.form-gradient input[type=password]:focus:not([readonly]) {
+  border-bottom: 1px solid #3238a8;
+  -webkit-box-shadow: 0 1px 0 0 #3238a8;
+  box-shadow: 0 1px 0 0 #3238a8; }
+
+.form-gradient input[type=password]:focus:not([readonly]) + label {
+  color: #4f4f4f; }
+  
+.no-suggestions {
+  padding: 0.5rem;
+}
+
+.suggestions {
+  position:absolute;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 10;
+  max-height: 1px;
+  position: static;
+  width: calc(300px + 5rem);
+  text-align: left;
+
+}
+
+.suggestions li {
+  border-radius: 5px;
+  background-color:white;
+  width: 810px;
+  padding: 0.4rem;
+  margin-left: 131px ;
+  color: black;
+
+}
+
+.suggestions li:hover {
+  color: blue;
+  cursor: pointer;
+  font-weight: 700;
+} 
+
+.suggest{
+  height:138px; 
+  overflow:hidden; 
+  overflow-y:scroll;
+  text-align: center;
+  width: 980px;
+
+}
+
+
+
+
+  

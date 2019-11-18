@@ -1,0 +1,11 @@
+language: node_js
+server: mongodb
+node_js:
+  - '12'
+install:
+  - cd restaurant-review-app/server ; npm install
+  - cd restaurant-review-app/server ; npm install -dev
+
+cache:
+  directories:
+  - node_modules
