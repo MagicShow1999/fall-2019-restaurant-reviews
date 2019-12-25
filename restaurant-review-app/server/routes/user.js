@@ -1,5 +1,4 @@
 //user router : includes login and register route
-
 const router = require('express').Router();
 const User = require('../models/user.model');
 //use express-validator to validate inputs
@@ -66,6 +65,58 @@ router.route('/register').post([
   
 });
 
+router.route('/:id/changeemail').put((req, res) =>{
+  const email = req.body.email;
+  User.findById(req.params.id)
+      .then( (user) =>{
+          user.email = email;
+          user.save()
+              .then( () => res.json("Email edited!"))
+              .catch( (err) => res.status(400).json('Error' + err));
+      })
+      .catch( (err) => res.json('Err' + err));
+})
+
+
+router.route('/:id/changepassword').put((req, res) =>{
+  /*class hashedPasswordFactory {
+    getHashedPassword(unhashedPassword) {
+      bcrypt.genSalt(10, (err,salt) =>{
+        bcrypt.hash(password, salt, (err, hash)=> {
+          if(err){
+            console.log(err);
+          }
+    
+          //replace the password with encrpyted one
+          unhashedPassword = hash;
+        })
+      });
+      return unhashedPassword;
+    }
+  } */
+  bcrypt.genSalt(10, (err,salt) =>{
+    bcrypt.hash(req.body.password, salt, (err, hash)=> {
+      if(err){
+        console.log(err);
+      }
+
+      //replace the password with encrpyted one
+      password = hash;
+    })
+  });
+  //let hashedPasswordFact = new hashedPasswordFactory();
+  //let password = hashedPasswordFact.getHashedPassword(req.body.password);
+
+  User.findById(req.params.id)
+      .then( (user) =>{
+          user.password = password;
+          user.save()
+              .then( () => res.json("Password edited!"))
+              .catch( (err) => res.status(400).json('Error' + err));
+      })
+      .catch( (err) => res.json('Err' + err));
+})
+
 // log in 
 router.route('/login').post([
   //validate login info
@@ -107,38 +158,6 @@ router.route('/login').post([
     
 });
 
-
-//protected route
-router.route('/protected').get( (req,res) =>{
-  const user = res.body;
-  passport.authenticate('jwt', {session:false}, (err, user, info)=>{
-
-    if(err) {
-      console.log(err);
-    }
-    if(info !== undefined){
-      console.log(info.message);
-      res.send(info.message);
-    }
-    else{
-      console.log('user found in mongodb');
-      res.status(200).send({
-        auth:true,
-        firstname:user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        password: user.password,
-        message:'user found in mongodb'
-
-      })
-
-    }
-  })(req,res,next);
-  
-});
-
-
-
 //implement delete user account
 router.route('/:id').delete( (req, res) => {
 
@@ -168,4 +187,38 @@ router.route('/:id/favorites/add').post( (req, res) =>{
       .catch( (err) => res.json('Err' + err));
 })
 
+
+
+      
+router.route('/:id/favorites/delete').put((req, res) =>{
+
+  User.findById(req.params.id)
+  .then((user)=> {
+      const resname = req.body.newFavorite;
+      const index = user.favoriteRes.indexOf(resname);
+      user.favoriteRes.splice(index,1);
+
+      user.save()
+          .then( () => res.json( user.favoriteRes) )
+          .catch ( (err) => res.status(400).json('Error' + err));
+      
+  
+  })
+  .catch( err => res.status(400).json('Err' + err));
+
+})
+
+
+// router.route('/:id/addcomments').post( (req, res) =>{
+//   User.findById(req.params.id)
+//   .then( (user) =>{
+//     const dishname = req.body.dishname;
+//     const dishrating = parseInt(req.body.dishrating);
+//     const comments = req.body.comments;
+//     const newcomment = new comments({dishname,dishrating,comments});
+
+//     user.comments.push(newcomment);
+
+//   })
+// })
 module.exports = router;

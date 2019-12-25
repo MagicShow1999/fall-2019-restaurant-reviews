@@ -4,11 +4,14 @@ import '../vendor/bootstrap/css/bootstrap.css';
 import "mdbreact/dist/css/mdb.css";
 
 function FavoriteResList(props) {
-    console.log(props.favRes);
-    return props.favRes.map( favorite => {     
+   
+    return props.favRes.map( favorite => {    
+         
         return(
             <div>
-            <button type="button" class="list-group-item list-group-item-action">🌟{favorite}</button> 
+                <button type="button" class="list-group-item list-group-item-action somepadding">
+                    <span className="goldstartext">★</span> &nbsp;&nbsp; {favorite}
+                </button> 
             </div> 
         );
     });

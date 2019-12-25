@@ -5,7 +5,6 @@
 .App-logo {
   height: 40vmin;
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,67 +21,88 @@
 }
 
 .form-gradient .header {
-  border-top-left-radius: .3rem;
-  border-top-right-radius: .3rem; }
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+}
 
-.form-gradient input[type=text]:focus:not([readonly]) {
+.form-gradient input[type="text"]:focus:not([readonly]) {
   border-bottom: 1px solid #3238a8;
   -webkit-box-shadow: 0 1px 0 0 #3238a8;
-  box-shadow: 0 1px 0 0 #3238a8; }
+  box-shadow: 0 1px 0 0 #3238a8;
+}
 
-.form-gradient input[type=text]:focus:not([readonly]) + label {
-  color: #4f4f4f; }
+.form-gradient input[type="text"]:focus:not([readonly]) + label {
+  color: #4f4f4f;
+}
 
-.form-gradient input[type=password]:focus:not([readonly]) {
+.form-gradient input[type="password"]:focus:not([readonly]) {
   border-bottom: 1px solid #3238a8;
   -webkit-box-shadow: 0 1px 0 0 #3238a8;
-  box-shadow: 0 1px 0 0 #3238a8; }
+  box-shadow: 0 1px 0 0 #3238a8;
+}
 
-.form-gradient input[type=password]:focus:not([readonly]) + label {
-  color: #4f4f4f; }
-  
+.form-gradient input[type="password"]:focus:not([readonly]) + label {
+  color: #4f4f4f;
+}
+
 .no-suggestions {
   padding: 0.5rem;
 }
 
 .suggestions {
-  position:absolute;
   border-top-width: 0;
   list-style: none;
   margin-top: 10;
   max-height: 1px;
   position: static;
-  width: calc(300px + 5rem);
+  /* width: 300px; */
   text-align: left;
-
 }
 
 .suggestions li {
   border-radius: 5px;
-  background-color:white;
-  width: 810px;
+  background-color: white;
+  width: 676px;
   padding: 0.4rem;
-  margin-left: 131px ;
+  margin-left: 84px;
   color: black;
-
 }
 
 .suggestions li:hover {
   color: blue;
   cursor: pointer;
   font-weight: 700;
-} 
-
-.suggest{
-  height:138px; 
-  overflow:hidden; 
-  overflow-y:scroll;
-  text-align: center;
-  width: 980px;
-
 }
 
+.suggest {
+  height: 138px;
+  overflow: hidden;
+  overflow-y: scroll;
+  text-align: center;
+  width: 980px;
+}
 
+.rating {
+  font-size: "500";
+  background: "cyan";
+}
 
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
 
-  
+.containerul {
+  max-width: auto;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
+.res {
+  font-family: "Nunito", sans-serif;
+}

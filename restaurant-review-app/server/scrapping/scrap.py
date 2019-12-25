@@ -46,6 +46,9 @@ def mongo_connect():
 
 def get_page(page):
     driver=webdriver.Chrome('C:/Users/mayuk/Desktop/chromedriver.exe')
+    
+    #!!!! Is this url only for scrap Ichiran page?
+    #
     driver.get("view-source:https://www.yelp.com/biz/ichiran-midtown-new-york?start="+(str)(page))
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     #dump=[item.get_text(strip=True) for item in soup.select("span.html-attribute-value")]
@@ -77,12 +80,13 @@ def get_reviews():
         #print('Name: '+json_ob['name']+' Address: '+json_ob['address']['streetAddress'])
 
         for i in range(len(json_ob['review'])):
-            review_list.append(json_ob['review'][i]['description'])
+            review_list.append((str)(json_ob['review'][i]['reviewRating']['ratingValue'])+' '+json_ob['review'][i]['description'])
             #print((str)(json_ob['review'][i]['reviewRating']['ratingValue'])+': '+json_ob['review'][i]['description']+'\n')
             #print('---------------------------------------')
+        #print(review_list)
     
     business = {
-        'name' : json_ob['name'],
+        'name' : json_ob['name']+' (with ratings)',
         'address': json_ob['address']['streetAddress'],
         'rating' : json_ob['aggregateRating']['ratingValue'],
         'cuisine' : json_ob['servesCuisine'],
@@ -90,7 +94,7 @@ def get_reviews():
         'reviews' : review_list
     }
     db=mongo_connect()
-    result=db.reviews.insert_one(business)
+    result=db.restaurants.insert_one(business)
     print(result)
 
 get_reviews()

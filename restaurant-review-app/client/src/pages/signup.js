@@ -98,6 +98,7 @@ class Signup extends Component {
         const isValid = this.validate();
         
         if(isValid){
+            const {history} =this.props;
             const user = {
                 firstname: this.state.firstname,
                 lastname: this.state.lastname,
@@ -105,13 +106,14 @@ class Signup extends Component {
                 password: this.state.password
             }
             console.log(user);
-            alert("Hello " + user.firstname);
+            //alert("Hello " + user.firstname);
+            
             //stores data in mongodb
             axios.post('http://localhost:5000/user/register', user)
                 .then(res => console.log(res.data));
+            
 
-
-            //window.location.replace('/login');
+            history.push('/login');
 
             //set to initial state
             this.setState({
@@ -130,7 +132,9 @@ class Signup extends Component {
         return (
             <div className="bg">
                 <NavBar/>
-                <br/><br/><br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <center>
                 <MDBContainer>
                     <MDBRow>
                     <MDBCol>
@@ -138,17 +142,9 @@ class Signup extends Component {
                             <MDBCard >
                                 <div className="header pt-3 peach-gradient">
                                 <MDBRow className="d-flex justify-content-center">
-                                    <h3 className="white-text mb-2 pt-2 font-weight-bold">
-                                    Sign Up
+                                    <h3 className="darkgreytext mb-3 pt-3 font-weight-bold">
+                                    Create An Account
                                     </h3>
-                                </MDBRow>
-                                <MDBRow className="mt-0 mb-3 d-flex justify-content-center">
-                                    <a href="#!" className="fa-lg p-2 m-2 fb-ic">
-                                    <MDBIcon fab icon="facebook-f" size="lg" className="white-text" />
-                                    </a>
-                                    <a href="#!" className="fa-lg p-2 m-2 gplus-ic">
-                                    <MDBIcon fab className="fa-google-plus-g white-text fa-lg" />
-                                    </a>
                                 </MDBRow>
                                 </div>
                                 <MDBCardBody className="mx-4 mt-4">
@@ -204,26 +200,28 @@ class Signup extends Component {
                                         color="orange"
                                         rounded
                                         type="button"
-                                        className="z-depth-1a"
+                                        className="darkgreytext z-depth-1a"
                                         onClick={this.onSubmit}
                                         >
-                                        Sign Up!
+                                        Sign Up
                                         </MDBBtn>
                                     </div>
 
                                     </MDBCol>
+
                                     <MDBCol md="7" className="d-flex justify-content-end">
-                                    <div className="font-small grey-text mt-3">
-                                    Have an account? 
-                                    <Router>
-                                        <Switch>
-                                            <button type="button" onClick={ refreshPage } className = "button">
-                                                <Link to='/login' className="nav-link" >Login</Link>
-                                            </button> 
-                                        </Switch>
-                                    </Router>
-                                    </div>
+                                        <div className="font-small grey-text mt-3">
+                                        Have an account? 
+                                            <Router>
+                                                <Switch>
+                                                    <button type="button" onClick={ refreshPage } className = "button">
+                                                        <Link to='/login' className="nav-link" >Login</Link>
+                                                    </button> 
+                                                </Switch>
+                                            </Router>
+                                        </div>
                                     </MDBCol>
+                                    <br/><br/><br/>
                                 </MDBRow>
                                 </MDBCardBody>
                             </MDBCard>
@@ -231,7 +229,9 @@ class Signup extends Component {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
+                </center>
             </div>
+        
         );
     }
 }

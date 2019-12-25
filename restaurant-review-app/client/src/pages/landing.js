@@ -1,121 +1,99 @@
-import React, { Component } from 'react';
-// import '../vendor/bootstrap/css/bootstrap.min.css';
-import '../css/one-page-wonder.min.css';
-import '../App.css';
-import NavBar from './navbar';
-//import { BrowserRouter as Router} from "react-router-dom";
-//import Signup from "./signup";
-//import Login from "./login";
-// import { Switch } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
-// import { MDBCol, MDBIcon } from "mdbreact";
-// import SelectSearch from 'react-select-search'
+import React, { Component } from "react";
+import "../css/one-page-wonder.min.css";
+import "../App.css";
+import NavBar from "./navbar";
 import Autocomplete from "../Autocomplete";
 import axios from "axios";
 
 class Landing extends Component {
+
   constructor(props) {
     super(props);
-    this.signoutHandler = this.signoutHandler.bind(this);
-    this.loginStatusCheck = this.loginStatusCheck.bind(this);
-    this.state = {
-      ids:[],
-      names: [],
-      my_dict: {},
-      loggedIn: true,
-      loginHour: 0
 
+    this.state = {
+      ids: [],
+      names: [],
+      my_dict: {}
     };
   }
 
-  loginStatusCheck(){
-    const currentHour = new Date().getHours();
-    console.log(currentHour);
-    
-    //check user has logged in or not. If logged in, set login boolean to be true.
+  componentDidMount() {
 
-    if(localStorage.getItem('jwtToken')){
-      console.log(localStorage.getItem('jwtToken'));
-      this.setState({loggedIn:true,loginHour:new Date().getHours()});
-      console.log(this.state.loginHour);
-    }
-    //remove token from local storage after an hour
-    if(currentHour - this.state.loginhour > 0 ){
-      localStorage.removeItem('jwtToken');    
-      this.setState({loggedIn:false}); 
-    }
+    axios.get("http://localhost:5000/restaurant").then(response => {
 
-  }
-  signoutHandler(){
-    this.setState({loggedIn:false});
-    localStorage.setItem('jwtToken',null);
-  }
-
-
-  componentDidMount(){
-    this.loginStatusCheck();
-    axios.get("http://localhost:5000/restaurant")
-    .then(response => {
-      if (response.data.length > 0){
-        console.log(response.data)
+      if (response.data.length > 0) {
+        console.log(response.data);
         var keys = response.data.map(restaurant => restaurant.name);
         var values = response.data.map(restaurant => restaurant._id);
         var result = {};
-        keys.forEach((key, i) => result[key] = values[i]);
+        keys.forEach((key, i) => (result[key] = values[i]));
 
-        console.log(result)
+        console.log(result);
         this.setState({
           names: keys,
           my_dict: result
 
-          // ids: response.data.map(restaurant => restaurant._id),
-          // names: response.data.map(restaurant => restaurant.name),
-
-          // my_dict: this.state.names.map(function(obj,index){
-          //   var myobj = {};
-          //   myobj[this.state.ids[index]] = obj;
-          //   return myobj;
-          // })
-
-        })
+        });
       }
-      console.log(typeof(this.state.my_dict));
-
-    })
-
+      console.log(typeof this.state.my_dict);
+    });
   }
 
   render() {
-    
     return (
-        <div className="App">
-          <NavBar loggedin = {this.state.loggedIn} onClick = {this.signoutHandler}/>
-          <header className="masthead text-center text-white">
-            <div className="masthead-content">
-              <div className="container">
-                <h2 className="masthead-subheading mb-0">Search for a restaurant</h2>
-                <Autocomplete suggestions={this.state.my_dict}/>
-              </div>
+      <div className="App">
+        <NavBar />
+        <header className="landingheader text-center text-white">
+          <div className="masthead-content">
+            <div className="container">
+              <br/><br/><br/><br/>
+              <h2 className="landingtext">
+                Rate The Plate
+              </h2>
+              <br/>
+              <Autocomplete
+                className="container2"
+                suggestions={this.state.my_dict}
+                loggedStatus={this.state.loggedIn}
+              />
             </div>
+          </div>
 
-            <div className="bg-circle-1 bg-circle"></div>
-            <div className="bg-circle-2 bg-circle"></div>
-            <div className="bg-circle-3 bg-circle"></div>
-            <div className="bg-circle-4 bg-circle"></div>
-          </header>
+          <div className="bg-circle-1 bg-circle"></div>
+          <div className="bg-circle-2 bg-circle"></div>
+          <div className="bg-circle-3 bg-circle"></div>
+          <div className="bg-circle-4 bg-circle"></div>
+        </header>
 
         <section>
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-6">
                 <div className="p-5">
-                  <img className="img-fluid rounded-circle" src={require("../img/food1.jpeg")} alt="" />
+                  <img
+                    className="img-fluid rounded-circle"
+                    src={require("../img/food1.jpeg")}
+                    alt=""
+                  />
                 </div>
               </div>
               <div className="col-lg-6">
                 <div className="p-5">
-                  <h2 className="display-4">For those who want the best!</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                  <h2 className="display-4">Why did we make Rate The Plate?</h2>
+                  <p>
+
+                    The resources to help users find restaurants to eat at 
+                    are plentiful. 
+                    However, even the best restaurants can 
+                    have unsatisfactory dishes. 
+                    Rate the Plate was made to
+                    address this issue by offering restaurant-goers a new 
+                    kind of tool. Instead of having to scour through hundreds
+                    of overly-enthusiastic, hateful, or paid-for reviews,
+                    in order to find information on certain dishes, users
+                    can see a precise quantitative score on each menu item.
+
+                  </p>
                 </div>
               </div>
             </div>
@@ -127,45 +105,43 @@ class Landing extends Component {
             <div className="row align-items-center">
               <div className="col-lg-6 order-lg-2">
                 <div className="p-5">
-                    <img className="img-fluid rounded-circle" src={require("../img/food3.jpeg")} alt=""/>
-                    </div>
+                  <img
+                    className="img-fluid rounded-circle"
+                    src={require("../img/food3.jpeg")}
+                    alt=""
+                  />
+                </div>
               </div>
               <div className="col-lg-6 order-lg-1">
                 <div className="p-5">
-                  <h2 className="display-4">Find the Best!</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                  <h2 className="display-4">How does RTP work?</h2>
+                  <p>
+                    
+                    The first step is to find your restaurant by searching
+                    for it from the landing page. 
+                    Next, you will be presented
+                    with some basic information about the restaurant, such as
+                    it's address, cuisine and overall rating. 
+                    As you scroll
+                    down, you will be able to see ratings for each of the
+                    individual menu items along with some comments about that
+                    dish in particular. This should help you know what to
+                    order. Once you've decided what to order and have eaten,
+                    we encourage you to leave your own ratings and comments
+                    on the plates you ate for other restaurant-goers!
+
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <footer className="py-5 bg-black">
-          <div className="container">
-            <p className="m-0 text-center text-white small"><a className="nav-link" href="https://github.com/nyu-software-engineering/fall-2019-restaurant-reviews">Contact The Team</a></p>
-          </div>
-        </footer>
-
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       </div>
     );
   }
-}
-
-function getRestaurantList(){
-  axios.get("http://localhost:5000/restaurant")
-  .then(response => {
-    if (response.data.length > 0){
-      console.log(response.data.map(restaurant => restaurant.name));
-      return response.data.map(restaurant => restaurant.name);
-
-    }
-  })
-}
-
-function refreshPage(){ 
-    window.location.reload(); 
 }
 
 export default Landing;

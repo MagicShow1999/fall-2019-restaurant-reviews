@@ -1,6 +1,5 @@
-
 body {
-  font-family: 'Lato';
+  font-family: "Lato";
 }
 
 h1,
@@ -9,7 +8,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Catamaran';
+  font-family: "Catamaran";
   font-weight: 800 !important;
 }
 
@@ -50,7 +49,7 @@ h6 {
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.1rem;
-  color: #FFF;
+  color: #fff;
 }
 /* header.masthead2 {
   position: relative;
@@ -64,12 +63,44 @@ h6 {
 } */
 
 header.masthead {
-  height: 85vh;
+  height: 100vh;
   position: relative;
   overflow: hidden;
   padding-top: calc(7rem + 72px);
   padding-bottom: 7rem;
   background: linear-gradient(0deg, #3238a8 0%, #3298a8 100%);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+.landingheader {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(7rem + 72px);
+  padding-bottom: 7rem;
+  background-color: #10316b;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+.landingtext {
+  font-size: 4rem;
+  color: #FBD47B;
+}
+
+.restaurant {
+  height: 40vh;
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(4rem + 72px);
+  padding-bottom: 7rem;
+  background: linear-gradient(0deg, #3238a8 0%, #3298a8 100%);
+  /* background: linear-gradient(0deg, #e70000 0%, #ff0000 100%); */
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: scroll;
@@ -158,7 +189,9 @@ header.masthead .bg-circle-4 {
   border-color: #3238a8;
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
   background-color: #3298a8 !important;
   border-color: #3298a8 !important;
 }
@@ -166,35 +199,105 @@ header.masthead .bg-circle-4 {
 .btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(63, 78, 191, 0.5);
 }
- 
+
 .btn-secondary {
-  background-color: #5B3FBF;
-  border-color: #5B3FBF;
+  background-color: #5b3fbf;
+  border-color: #5b3fbf;
 }
 
-.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
-  background-color: #723FBF !important;
-  border-color: #723FBF !important;
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary:hover {
+  background-color: #723fbf !important;
+  border-color: #723fbf !important;
 }
 
 .btn-secondary:focus {
   box-shadow: 0 0 0 0.2rem rgba(72, 63, 191, 0.5);
-
 }
 
 .button {
   background-color: Transparent;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   border: none;
-  cursor:pointer;
+  cursor: pointer;
   overflow: hidden;
-  outline:none;
+  outline: none;
 }
 
+
 .bg {
-  background-image: url("https://mdbootstrap.com/img/Photos/Others/gradient1.jpg");
+  background-color: #10316b;
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.bguser {
+  background-color: #10316b;
+}
+
+.bg2 {
+  background-color: #89898c;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg3 {
+  background-color: #89898c;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bgwhite {
+  background-color: #fff;
+}
+
+.whitetext {
+  color: #ffffff;
+}
+
+.bgblue {
+  background-color: #10316b;
+}
+
+.bgblack {
+  background-color: #000000;
+}
+
+.bgorange {
+  background-color: #e25822;
+}
+
+.bglightgrey {
+  background-color: #f9f9f9;
+}
+
+.goldstar {
+  color: #cccc00;
+  border: 0px;
+  outline: none;
+}
+
+.goldstartext {
+  color: #cccc00;
+}
+
+.squarecorners {
+  border-radius: 0%;
+}
+
+.darkgreytext {
+  color: #333333;
+}
+
+.somepadding {
+  margin-left: 3vw;
+  margin-top: 10px;
+  width: 68vw;
 }
